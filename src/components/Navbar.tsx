@@ -1,11 +1,14 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Menu, X, Plane } from 'lucide-react';
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   const links = [
     { name: 'Home', path: '/' },
@@ -16,10 +19,17 @@ const Navbar = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-bg/80 backdrop-blur-xl border-b border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+
+          {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-indigo to-brand-cyan flex items-center justify-center">
               <Plane className="w-6 h-6 text-white" />
@@ -32,6 +42,7 @@ const Navbar = () => {
             </div>
           </Link>
 
+          {/* Desktop */}
           <div className="hidden md:flex items-center space-x-1">
             {links.map((link) => (
               <Link
@@ -46,14 +57,26 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/login"
-              className="ml-4 px-6 py-2 rounded-lg bg-gradient-to-r from-brand-indigo to-brand-cyan text-white font-semibold hover:shadow-lg hover:shadow-brand-indigo/50 transition-all duration-300"
-            >
-              Login
-            </Link>
+
+            {/* 🔥 AUTH BUTTON */}
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="ml-4 px-6 py-2 rounded-lg bg-red-500 text-white font-semibold hover:bg-red-600 transition-all"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="ml-4 px-6 py-2 rounded-lg bg-gradient-to-r from-brand-indigo to-brand-cyan text-white font-semibold hover:shadow-lg hover:shadow-brand-indigo/50 transition-all duration-300"
+              >
+                Login
+              </Link>
+            )}
           </div>
 
+          {/* Mobile Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2 rounded-lg text-gray-300 hover:bg-white/5"
@@ -63,11 +86,11 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
           className="md:hidden bg-dark-card/95 backdrop-blur-xl border-t border-white/5"
         >
           <div className="px-4 py-4 space-y-2">
@@ -76,7 +99,7 @@ const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsOpen(false)}
-                className={`block px-4 py-3 rounded-lg transition-all duration-300 ${
+                className={`block px-4 py-3 rounded-lg ${
                   isActive(link.path)
                     ? 'bg-gradient-to-r from-brand-indigo to-brand-cyan text-white'
                     : 'text-gray-300 hover:bg-white/5'
@@ -85,13 +108,24 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/login"
-              onClick={() => setIsOpen(false)}
-              className="block px-4 py-3 rounded-lg bg-gradient-to-r from-brand-indigo to-brand-cyan text-white font-semibold text-center"
-            >
-              Login
-            </Link>
+
+            {/* 🔥 AUTH BUTTON MOBILE */}
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="block w-full px-4 py-3 rounded-lg bg-red-500 text-white text-center"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setIsOpen(false)}
+                className="block px-4 py-3 rounded-lg bg-gradient-to-r from-brand-indigo to-brand-cyan text-white text-center"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </motion.div>
       )}

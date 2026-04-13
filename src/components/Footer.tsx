@@ -6,6 +6,8 @@ const Footer = () => {
     <footer className="bg-dark-card/50 border-t border-white/5 mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+          {/* Logo Section */}
           <div className="col-span-1">
             <Link to="/" className="flex items-center space-x-2 mb-4">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-indigo to-brand-cyan flex items-center justify-center">
@@ -18,9 +20,11 @@ const Footer = () => {
                 <div className="text-[10px] text-gray-400 -mt-1">Door to Door</div>
               </div>
             </Link>
+
             <p className="text-gray-400 text-sm">
               Your journey, simplified. Experience door-to-door travel with zero stress.
             </p>
+
             <div className="flex space-x-4 mt-4">
               <a href="#" className="text-gray-400 hover:text-brand-cyan transition-colors">
                 <Facebook className="w-5 h-5" />
@@ -34,6 +38,7 @@ const Footer = () => {
             </div>
           </div>
 
+          {/* Quick Links */}
           <div>
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
@@ -60,32 +65,34 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* ✅ Support Links (FIXED ROUTING) */}
           <div>
             <h3 className="text-white font-semibold mb-4">Support</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-400 hover:text-brand-cyan transition-colors text-sm">
+                <Link to="/help" className="text-gray-400 hover:text-brand-cyan transition-colors text-sm">
                   Help Center
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-brand-cyan transition-colors text-sm">
+                <Link to="/terms" className="text-gray-400 hover:text-brand-cyan transition-colors text-sm">
                   Terms of Service
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-brand-cyan transition-colors text-sm">
+                <Link to="/privacy" className="text-gray-400 hover:text-brand-cyan transition-colors text-sm">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-brand-cyan transition-colors text-sm">
+                <Link to="/cancellation" className="text-gray-400 hover:text-brand-cyan transition-colors text-sm">
                   Cancellation Policy
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
+          {/* Contact */}
           <div>
             <h3 className="text-white font-semibold mb-4">Contact</h3>
             <ul className="space-y-3">
@@ -99,10 +106,12 @@ const Footer = () => {
               </li>
             </ul>
           </div>
+
         </div>
 
+        {/* Bottom */}
         <div className="border-t border-white/5 mt-8 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; 2024 VOYEX. All rights reserved.</p>
+          <p>&copy; 2026 VOYEX. All rights reserved.</p>
         </div>
       </div>
     </footer>

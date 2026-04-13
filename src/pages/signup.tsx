@@ -1,39 +1,29 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 
-export default function Login() {
+export default function Signup() {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login } = useAuth();
+  const handleSignup = (e: React.FormEvent) => {
+    e.preventDefault();
 
-const handleLogin = (e: React.FormEvent) => {
-  e.preventDefault();
+    const user = { username, password };
+    localStorage.setItem("user", JSON.stringify(user));
 
-  const storedUser = JSON.parse(localStorage.getItem("user") || "null");
-
-  if (
-    storedUser &&
-    username === storedUser.username &&
-    password === storedUser.password
-  ) {
-    login(storedUser); // ✅ IMPORTANT
-    navigate("/");
-  } else {
-    alert("Invalid credentials!");
-  }
-};
+    alert("Signup successful!");
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-dark-bg">
       <form
-        onSubmit={handleLogin}
+        onSubmit={handleSignup}
         className="bg-white p-10 rounded-2xl shadow-xl flex flex-col gap-5 w-[400px]"
       >
-        <h2 className="text-2xl font-bold text-center text-black">Login</h2>
+        <h2 className="text-2xl font-bold text-center text-black">Sign Up</h2>
 
         <input
           type="text"
@@ -49,15 +39,15 @@ const handleLogin = (e: React.FormEvent) => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button className="bg-blue-500 text-white p-3 rounded-lg text-lg hover:bg-blue-600">
-          Login
+        <button className="bg-green-500 text-white p-3 rounded-lg text-lg hover:bg-green-600">
+          Sign Up
         </button>
 
         <p
           className="text-center text-blue-500 cursor-pointer"
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate("/login")}
         >
-          Don’t have an account? Sign up
+          Already have an account? Login
         </p>
       </form>
     </div>
